@@ -40,6 +40,7 @@ public class JanelaCadastroEmpresas extends JInternalFrame {
 	JButton btAlterar = new JButton("Alterar");
 	JButton btExcluir = new JButton("Excluir");
 	JButton btSalvar = new JButton("Salvar");
+	JButton btConsultar = new JButton("Consultar");
 	PreparedStatement pStmt;
 	Connection con;
 	String CodPac, CPFPac;
@@ -63,7 +64,7 @@ public class JanelaCadastroEmpresas extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public JanelaCadastroEmpresas(Connection conex) {
-		setBounds(100, 100, 515, 295);
+		setBounds(100, 100, 599, 295);
 		getContentPane().setLayout(null);
 		con = conex;
 		JLabel lblNewLabel = new JLabel("Cadastro de Empresas:");
@@ -82,7 +83,7 @@ public class JanelaCadastroEmpresas extends JInternalFrame {
 		panel.add(lblNome);
 		
 		tfNome = new JTextField();
-		tfNome.setBounds(44, 33, 231, 20);
+		tfNome.setBounds(91, 32, 231, 20);
 		panel.add(tfNome);
 		tfNome.setColumns(10);
 		
@@ -92,7 +93,7 @@ public class JanelaCadastroEmpresas extends JInternalFrame {
 		
 		tfCNPJ = new JTextField();
 		tfCNPJ.setColumns(10);
-		tfCNPJ.setBounds(44, 5, 231, 20);
+		tfCNPJ.setBounds(91, 4, 231, 20);
 		panel.add(tfCNPJ);
 		
 		JLabel lblNewLabel_1_1_2 = new JLabel("Informa\u00E7\u00F5es Principais");
@@ -191,7 +192,7 @@ public class JanelaCadastroEmpresas extends JInternalFrame {
 		});
 		
 		
-		btAlterar.setBounds(145, 222, 89, 23);
+		btAlterar.setBounds(119, 222, 89, 23);
 		getContentPane().add(btAlterar);
 		btExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
@@ -250,7 +251,7 @@ public class JanelaCadastroEmpresas extends JInternalFrame {
 		});
 		
 		
-		btExcluir.setBounds(279, 222, 89, 23);
+		btExcluir.setBounds(218, 222, 89, 23);
 		getContentPane().add(btExcluir);
 		btSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
@@ -276,6 +277,7 @@ public class JanelaCadastroEmpresas extends JInternalFrame {
                                                         btExcluir.setEnabled(true);
                                                         btAlterar.setEnabled(true);
                                                         btSalvar.setEnabled(false);
+                                                        btConsultar.setEnabled(true);
                                                         tfCNPJ.setText("");
                                                         tfNome.setText("");
 
@@ -309,6 +311,7 @@ public class JanelaCadastroEmpresas extends JInternalFrame {
                                 btExcluir.setEnabled(true);
                                 btAlterar.setEnabled(true);
                                 btSalvar.setEnabled(false);
+                                btConsultar.setEnabled(true);
                                 tfCNPJ.setText("");
                                 tfNome.setText("");
                  
@@ -355,6 +358,7 @@ public class JanelaCadastroEmpresas extends JInternalFrame {
                                     btExcluir.setEnabled(true);
                                     btAlterar.setEnabled(true);
                                     btSalvar.setEnabled(false);
+                                    btConsultar.setEnabled(true);
                                     tfNome.setText("");
                                     tfCNPJ.setText("");
                                     btSalvar.setText("Salvar");
@@ -366,13 +370,86 @@ public class JanelaCadastroEmpresas extends JInternalFrame {
                             }
 
                         break;
+                        case 4:
+                        	tfNome.setEditable(true);
+                            tfCNPJ.setEditable(true);;
+                            btIncluir.setEnabled(true);
+                            btExcluir.setEnabled(true);
+                            btAlterar.setEnabled(true);
+                            btSalvar.setEnabled(false);
+                            btConsultar.setEnabled(false);
+                            btSalvar.setText("Salvar");
+                            tfNome.setText("");
+                            tfCNPJ.setText("");
+                            btSalvar.setText("Salvar");
+                        	
+                        break;
                     }
             }
 		});
 		
 		
-		btSalvar.setBounds(408, 222, 89, 23);
+		btSalvar.setBounds(317, 222, 89, 23);
 		getContentPane().add(btSalvar);
+		
+		
+		btConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                String retorno = JOptionPane.showInputDialog(null,"Digite o CNPJ da Empresa:");
+
+                try
+                    {
+                        pStmt = con.prepareStatement("SELECT * FROM EMPRESAS WHERE CNPJ LIKE ?");
+                        pStmt.setString(1,retorno);
+                        ResultSet rs = pStmt.executeQuery();
+                        if (rs.next())
+                            {
+                                CodPac = rs.getString(1);
+                                tfCNPJ.setText(rs.getString(1));
+                                tfNome.setText(rs.getString(2));
+                                if (rs.getString(3).equals("S"))                                          
+                                	tfConvSim.setSelected(true); 
+                                else
+                                	tfConvNao.setSelected(true);
+
+                               
+                                situacao = 4;
+                                
+                               
+
+                                btExcluir.setEnabled(false);
+                                btAlterar.setEnabled(false);
+                                btSalvar.setEnabled(true);
+                                btSalvar.setText("OK");
+                                btIncluir.setEnabled(false);
+                                btConsultar.setEnabled(false);
+                                
+
+
+                            }
+                        else
+                            {
+                                JOptionPane.showMessageDialog(null,"Empresa não encontrada!", "Erro", JOptionPane.ERROR_MESSAGE);
+                                btExcluir.setEnabled(true);
+                                btAlterar.setEnabled(true);
+                                btSalvar.setEnabled(false);
+                                btSalvar.setText("Salvar");
+                                btIncluir.setEnabled(true);
+                                btConsultar.setEnabled(true);
+
+
+                            }
+            }
+        catch (SQLException ex)
+            {
+                JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+    }
+		});
+		btConsultar.setBounds(416, 222, 89, 23);
+		getContentPane().add(btConsultar);
 		
 	
 

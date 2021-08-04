@@ -116,7 +116,7 @@ public class JanelaCadastroExames extends JInternalFrame {
                      pStmt = con.prepareStatement("SELECT MAX(ID_EXAME) FROM EXAMES ");
                      ResultSet rs = pStmt.executeQuery();
                      if (rs.next())
-                    	ID = Integer.parseInt(rs.getString(1)) + 1;
+                    	ID = rs.getInt(1) + 1;
                
 				
 				
@@ -365,6 +365,22 @@ public class JanelaCadastroExames extends JInternalFrame {
                             }
 
                         break;
+                        case 4:
+                        	
+                        	tfNome.setEditable(true);
+                            
+                            btIncluir.setEnabled(true);
+                            btExcluir.setEnabled(true);
+                            btAlterar.setEnabled(true);
+                            btSalvar.setEnabled(false);
+                            btConsultar.setEnabled(true);
+                            tfNome.setText("");
+                            tfIDExame.setText("");
+                            tfDescricao.setText("");
+                            btSalvar.setText("Salvar");
+                        	
+                        break;
+                        
                     }
             }
 		});
@@ -375,6 +391,57 @@ public class JanelaCadastroExames extends JInternalFrame {
 		
 		tfDescricao.setBounds(20, 142, 458, 50);
 		getContentPane().add(tfDescricao);
+		btConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+                String retorno = JOptionPane.showInputDialog(null,"Digite o ID do Exame:");
+
+                try
+                    {
+                        pStmt = con.prepareStatement("SELECT * FROM EXAMES WHERE ID_EXAME = ?");
+                        pStmt.setInt(1,Integer.parseInt(retorno));
+                        ResultSet rs = pStmt.executeQuery();
+                        if (rs.next())
+                            {
+                        		tfIDExame.setText(rs.getString(1));
+                                tfNome.setText(rs.getString(2));
+                                tfDescricao.setText(rs.getString(3));
+
+                                situacao = 4;
+                                
+                               
+
+                                btExcluir.setEnabled(false);
+                                btAlterar.setEnabled(false);
+                                btSalvar.setEnabled(true);
+                                btIncluir.setEnabled(false);
+                                btConsultar.setEnabled(false);
+                                tfIDExame.setEditable(false);
+                                btSalvar.setText("OK");
+
+
+                            }
+                        else
+                            {
+                                JOptionPane.showMessageDialog(null,"Exame não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+                                btExcluir.setEnabled(true);
+                                btAlterar.setEnabled(true);
+                                btSalvar.setEnabled(false);
+                                btIncluir.setEnabled(true);
+                                btConsultar.setEnabled(true);
+                                btSalvar.setText("Salvar");
+
+
+                            }
+            }
+        catch (SQLException ex)
+            {
+                JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+    }
+		});
 		
 
 		btConsultar.setBounds(389, 222, 89, 23);

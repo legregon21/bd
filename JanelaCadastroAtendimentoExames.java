@@ -38,7 +38,6 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
 	JButton btIncluir = new JButton("Incluir");
 	JButton btExcluir = new JButton("Excluir");
 	JButton btSalvar = new JButton("Salvar");
-	JButton btConsultar = new JButton("Consultar");
 	JButton btSelecionarM = new JButton("Selecionar...");
 	JButton btSelecionarE = new JButton("Selecionar...");
 	PreparedStatement pStmt;
@@ -49,6 +48,7 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
 	private JTextField tfCPF;
 	private JTextField tfNomeMedico;
 	private JTextField tfNomeExame;
+	private JTextField tfHoraExame;
 	/**
 	 * Launch the application.
 	 */
@@ -79,7 +79,7 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(20, 72, 314, 47);
+		panel.setBounds(20, 72, 447, 47);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -88,7 +88,7 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
 		panel.add(lblNome);
 		
 		tfDataExame = new JTextField();
-		tfDataExame.setBounds(197, 11, 99, 20);
+		tfDataExame.setBounds(179, 11, 99, 20);
 		panel.add(tfDataExame);
 		tfDataExame.setColumns(10);
 		
@@ -102,9 +102,18 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
 		panel.add(tfCodigo);
 		tfCodigo.setEditable(false);
 		
+		JLabel lblHora = new JLabel("Hora:");
+		lblHora.setBounds(288, 14, 41, 14);
+		panel.add(lblHora);
+		
+		tfHoraExame = new JTextField();
+		tfHoraExame.setColumns(10);
+		tfHoraExame.setBounds(321, 11, 99, 20);
+		panel.add(tfHoraExame);
+		
 		
 		JLabel lblNewLabel_1_1_2 = new JLabel("Informa\u00E7\u00F5es do Atendimento:");
-		lblNewLabel_1_1_2.setBounds(21, 58, 142, 14);
+		lblNewLabel_1_1_2.setBounds(21, 58, 174, 14);
 		getContentPane().add(lblNewLabel_1_1_2);
 
 		
@@ -143,7 +152,7 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
 									                btExcluir.setEnabled(false);
 									       
 									                btSalvar.setEnabled(true);
-									                btConsultar.setEnabled(false);
+									               
 									                btSelecionarE.setEnabled(true);
 									                btSelecionarM.setEnabled(true);
 									                
@@ -176,7 +185,7 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
                 
 			}
 		});
-		btIncluir.setBounds(55, 346, 89, 23);
+		btIncluir.setBounds(90, 346, 89, 23);
 		getContentPane().add(btIncluir);
 		btExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
@@ -279,7 +288,7 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
                                 btExcluir.setEnabled(false);
                                 btSalvar.setEnabled(true);
                                 btIncluir.setEnabled(false);
-                                btConsultar.setEnabled(false);
+                              
                                 tfCodigo.setEditable(false);
                               
 
@@ -292,7 +301,7 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
                            
                                 btSalvar.setEnabled(false);
                                 btIncluir.setEnabled(true);
-                                btConsultar.setEnabled(true);
+                              
 
 
                             }
@@ -307,7 +316,7 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
 		});
 		
 		
-		btExcluir.setBounds(144, 346, 89, 23);
+		btExcluir.setBounds(179, 346, 89, 23);
 		getContentPane().add(btExcluir);
 		btSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
@@ -320,8 +329,9 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
                                                 try
                                                     {
                                     
-                                                        pStmt = con.prepareStatement("INSERT INTO OCORRENCIA_EXAMES VALUES ( TO_DATE(?, 'DD/MM/YYYY'),'Aguardando',?,?,?)");
-                                                        pStmt.setString(1, tfDataExame.getText());
+                                                        pStmt = con.prepareStatement("INSERT INTO OCORRENCIA_EXAMES VALUES ( TO_DATE(?, 'DD/MM/YYYY HH24:MI'),'Aguardando',?,?,?)");
+                                                        String DataHora = tfDataExame.getText() + " " + tfHoraExame.getText();
+                                                        pStmt.setString(1, DataHora);
                                                         pStmt.setString(2, tfCodigo.getText());
                                                         pStmt.setString(3, CRM_Medico);
                                                         pStmt.setInt(4, ID_Exame);
@@ -332,13 +342,14 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
                                                         btExcluir.setEnabled(true);
                                                      
                                                         btSalvar.setEnabled(false);
-                                                        btConsultar.setEnabled(true);
+                                                     
                                                         btSelecionarM.setEnabled(false);
                                                         btSelecionarE.setEnabled(false);
                                                         tfCodigo.setText("");
                                                         tfNomeMedico.setText("");
                                                         tfNomeExame.setText("");
                                                         tfDataExame.setText("");
+                                                        tfHoraExame.setText("");
                                                         tfNome.setText("");
                                                         tfCPF.setText("");
                                                    
@@ -376,13 +387,14 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
                                         btExcluir.setEnabled(true);
                                        
                                         btSalvar.setEnabled(false);
-                                        btConsultar.setEnabled(true);
+                                
                                         tfDataExame.setText("");
                                         tfCodigo.setText("");
                                         tfCPF.setText("");
                                         tfNome.setText("");
                                         tfNomeMedico.setText("");
                                         tfNomeExame.setText("");
+                                        tfHoraExame.setText("");
                                         btSalvar.setText("Salvar");
 
       
@@ -393,12 +405,8 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
 		});
 		
 		
-		btSalvar.setBounds(234, 346, 89, 23);
+		btSalvar.setBounds(269, 346, 89, 23);
 		getContentPane().add(btSalvar);
-		
-
-		btConsultar.setBounds(323, 346, 89, 23);
-		getContentPane().add(btConsultar);
 		
 		JLabel lblNewLabel_1_1_2_1 = new JLabel("Informa\u00E7\u00F5es do Paciente:");
 		lblNewLabel_1_1_2_1.setBounds(21, 130, 142, 14);

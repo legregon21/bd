@@ -178,9 +178,25 @@ public class vMenuPrincipal {
 		menuBar.add(mnNewMenu_6);
 		
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Evoluir Atendimento");
+		mntmNewMenuItem_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JanelaEvolucoesMedica JCEVM = new JanelaEvolucoesMedica(con);
+				JCEVM.setVisible(true);
+				JCEVM.setClosable(true);
+				desktopPane.add(JCEVM);
+			}
+		});
 		mnNewMenu_6.add(mntmNewMenuItem_7);
 		
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Cadastrar Resultado por Exames");
+		mntmNewMenuItem_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JanelaCadastroResultadoExame JCRE = new JanelaCadastroResultadoExame(con);
+				JCRE.setVisible(true);
+				JCRE.setClosable(true);
+				desktopPane.add(JCRE);
+			}
+		});
 		mnNewMenu_6.add(mntmNewMenuItem_8);
 		
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Sair");

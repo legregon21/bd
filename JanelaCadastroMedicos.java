@@ -38,11 +38,9 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 	private JTextField tfDataNasc;
 	private JTextField tfNumero;
 	private JTextField tfLogradouro;
-	private JTextField tfEstado;
 	private JTextField tfCidade;
 	private JTextField tfComplemento;
 	private JTextField tfTelefone;
-	private JTextField tfTelefone2;
 	private JTextField tfSexo;
 	int situacao = 0;
 	JButton btIncluir = new JButton("Novo");
@@ -74,7 +72,7 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public JanelaCadastroMedicos(Connection conex) {
-		setBounds(100, 100, 539, 508);
+		setBounds(100, 100, 643, 508);
 		getContentPane().setLayout(null);
 		con = conex;
 		JLabel lblNewLabel = new JLabel("Cadastro de M\u00E9dicos");
@@ -84,16 +82,16 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(20, 100, 477, 79);
+		panel.setBounds(20, 100, 544, 79);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(179, 8, 41, 14);
+		lblNome.setBounds(210, 8, 41, 14);
 		panel.add(lblNome);
 		
 		tfNome = new JTextField();
-		tfNome.setBounds(213, 5, 231, 20);
+		tfNome.setBounds(282, 2, 231, 20);
 		panel.add(tfNome);
 		tfNome.setColumns(10);
 		
@@ -103,16 +101,16 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 		
 		tfCPF = new JTextField();
 		tfCPF.setColumns(10);
-		tfCPF.setBounds(35, 5, 134, 20);
+		tfCPF.setBounds(61, 2, 134, 20);
 		panel.add(tfCPF);
 		
 		JLabel lblNasc = new JLabel("Nasc.:");
-		lblNasc.setBounds(179, 30, 41, 14);
+		lblNasc.setBounds(210, 30, 41, 14);
 		panel.add(lblNasc);
 		
 		tfDataNasc = new JTextField();
 		tfDataNasc.setColumns(10);
-		tfDataNasc.setBounds(213, 27, 94, 20);
+		tfDataNasc.setBounds(282, 24, 94, 20);
 		panel.add(tfDataNasc);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Sexo:");
@@ -121,7 +119,7 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 		
 		tfSexo = new JTextField();
 		tfSexo.setColumns(10);
-		tfSexo.setBounds(45, 27, 23, 20);
+		tfSexo.setBounds(71, 24, 23, 20);
 		panel.add(tfSexo);
 		
 		JLabel lblNewLabel_1_1_2 = new JLabel("Informa\u00E7\u00F5es Pessoais");
@@ -131,16 +129,16 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(20, 200, 477, 79);
+		panel_1.setBounds(20, 200, 544, 79);
 		getContentPane().add(panel_1);
 		
 		JLabel lblN = new JLabel("N\u00BA:");
-		lblN.setBounds(373, 8, 41, 14);
+		lblN.setBounds(418, 5, 41, 14);
 		panel_1.add(lblN);
 		
 		tfNumero = new JTextField();
 		tfNumero.setColumns(10);
-		tfNumero.setBounds(395, 5, 49, 20);
+		tfNumero.setBounds(469, 5, 49, 20);
 		panel_1.add(tfNumero);
 		
 		JLabel lblNewLabel_1_1_3 = new JLabel("Logradouro:");
@@ -149,21 +147,12 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 		
 		tfLogradouro = new JTextField();
 		tfLogradouro.setColumns(10);
-		tfLogradouro.setBounds(70, 5, 274, 20);
+		tfLogradouro.setBounds(114, 5, 274, 20);
 		panel_1.add(tfLogradouro);
-		
-		JLabel lblEstado = new JLabel("Estado:");
-		lblEstado.setBounds(168, 39, 41, 14);
-		panel_1.add(lblEstado);
-		
-		tfEstado = new JTextField();
-		tfEstado.setColumns(10);
-		tfEstado.setBounds(204, 36, 28, 20);
-		panel_1.add(tfEstado);
 		
 		tfCidade = new JTextField();
 		tfCidade.setColumns(10);
-		tfCidade.setBounds(44, 33, 94, 20);
+		tfCidade.setBounds(114, 30, 94, 20);
 		panel_1.add(tfCidade);
 		
 		JLabel lblNasc_1_1 = new JLabel("Cidade");
@@ -172,11 +161,11 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 		
 		tfComplemento = new JTextField();
 		tfComplemento.setColumns(10);
-		tfComplemento.setBounds(350, 33, 94, 20);
+		tfComplemento.setBounds(424, 33, 94, 20);
 		panel_1.add(tfComplemento);
 		
 		JLabel lblCompl = new JLabel("Compl:");
-		lblCompl.setBounds(316, 36, 41, 14);
+		lblCompl.setBounds(361, 33, 41, 14);
 		panel_1.add(lblCompl);
 		
 		JLabel lblNewLabel_1_1_2_1 = new JLabel("Endere\u00E7o:");
@@ -190,26 +179,17 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setLayout(null);
 		panel_1_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1_1.setBounds(20, 301, 477, 39);
+		panel_1_1.setBounds(20, 301, 217, 39);
 		getContentPane().add(panel_1_1);
 		
-		JLabel lblNewLabel_1_1_3_1 = new JLabel("Telefone 1: ");
+		JLabel lblNewLabel_1_1_3_1 = new JLabel("Telefone: ");
 		lblNewLabel_1_1_3_1.setBounds(10, 8, 66, 14);
 		panel_1_1.add(lblNewLabel_1_1_3_1);
 		
 		tfTelefone = new JTextField();
 		tfTelefone.setColumns(10);
-		tfTelefone.setBounds(70, 5, 121, 20);
+		tfTelefone.setBounds(86, 5, 121, 20);
 		panel_1_1.add(tfTelefone);
-		
-		JLabel lblNewLabel_1_1_3_1_1 = new JLabel("Telefone 2: ");
-		lblNewLabel_1_1_3_1_1.setBounds(201, 8, 66, 14);
-		panel_1_1.add(lblNewLabel_1_1_3_1_1);
-		
-		tfTelefone2 = new JTextField();
-		tfTelefone2.setColumns(10);
-		tfTelefone2.setBounds(261, 5, 121, 20);
-		panel_1_1.add(tfTelefone2);
 		
 		
 		btIncluir.addActionListener(new ActionListener() {
@@ -226,7 +206,7 @@ public class JanelaCadastroMedicos extends JInternalFrame {
                 situacao = 1;
 			}
 		});
-		btIncluir.setBounds(30, 351, 89, 23);
+		btIncluir.setBounds(70, 351, 89, 23);
 		getContentPane().add(btIncluir);
 		btAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
@@ -251,7 +231,7 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 	                        						
 						                        	try
 						                            {
-						                                pStmt = con.prepareStatement("SELECT CPF, NOME, TO_DATE(DATANASCIMENTO, 'DD/MM/YYYY'), CIDADE, LOGRADOURO, NUMERO, SEXO,EMPRESAS_CNPJ,COMPLEMENTO FROM PESSOAS WHERE CPF LIKE ?");
+						                                pStmt = con.prepareStatement("SELECT CPF, NOME, TO_CHAR(DATANASCIMENTO, 'DD/MM/YYYY'), CIDADE, LOGRADOURO, NUMERO, SEXO,EMPRESAS_CNPJ,COMPLEMENTO FROM PESSOAS WHERE CPF LIKE ?");
 						                                pStmt.setString(1,rs.getString(2));
 						                                rs = pStmt.executeQuery();
 						                                rs.next();
@@ -307,7 +287,7 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 		});
 		
 		
-		btAlterar.setBounds(120, 351, 89, 23);
+		btAlterar.setBounds(160, 351, 89, 23);
 		getContentPane().add(btAlterar);
 		btExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
@@ -387,7 +367,7 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 		});
 		
 		
-		btExcluir.setBounds(210, 351, 89, 23);
+		btExcluir.setBounds(250, 351, 89, 23);
 		getContentPane().add(btExcluir);
 		btSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
@@ -407,9 +387,9 @@ public class JanelaCadastroMedicos extends JInternalFrame {
                                                         pStmt.setString(4, tfCidade.getText());
                                                         pStmt.setString(5, tfLogradouro.getText());
                                                         pStmt.setString(6, tfNumero.getText());
-                                                        pStmt.setString(7, tfSexo.getText());
-                                                        pStmt.setString(8, "1");
-                                                        pStmt.setString(9, tfComplemento.getText());
+                                                        pStmt.setString(8, tfSexo.getText());
+                                                        pStmt.setString(9, "1");
+                                                        pStmt.setString(7, tfComplemento.getText());
 
                                                         pStmt.executeUpdate();
                                                         
@@ -555,18 +535,50 @@ public class JanelaCadastroMedicos extends JInternalFrame {
                             }
 
                         break;
+                        
+                        case 4:
+                        	
+                        	tfNome.setEditable(true);
+                            tfCPF.setEditable(true);;
+                             tfDataNasc.setEditable(true);
+                             tfCidade.setEditable(true);
+                            tfLogradouro.setEditable(true);
+                               tfNumero.setEditable(true);
+                             tfSexo.setEditable(true);
+                            tfCRM.setEditable(true);
+                            tfComplemento.setEditable(true);
+                            tfTelefone.setEditable(true);
+                            btIncluir.setEnabled(true);
+                            btExcluir.setEnabled(true);
+                            btAlterar.setEnabled(true);
+                            btConsultar.setEnabled(true);
+                            btSalvar.setEnabled(false);
+                            tfNome.setText("");
+                            tfCPF.setText("");
+                             tfDataNasc.setText("");
+                           tfCidade.setText("");
+                            tfLogradouro.setText("");
+                            tfNumero.setText("");
+                           tfSexo.setText("");
+                            tfCRM.setText("");
+                            tfComplemento.setText("");
+                            tfTelefone.setText("");
+                            btSalvar.setText("Salvar");
+                        	
+                        break;
+                        
                     }
             }
 		});
 		
 		
-		btSalvar.setBounds(300, 351, 89, 23);
+		btSalvar.setBounds(340, 351, 89, 23);
 		getContentPane().add(btSalvar);
 		
 		JPanel panel_1_1_1_1 = new JPanel();
 		panel_1_1_1_1.setLayout(null);
 		panel_1_1_1_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1_1_1_1.setBounds(234, 61, 263, 39);
+		panel_1_1_1_1.setBounds(234, 61, 330, 39);
 		getContentPane().add(panel_1_1_1_1);
 		
 		JLabel lblNewLabel_1_1_3_1_2_1 = new JLabel("CRM:");
@@ -577,13 +589,87 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 		tfCRM.setColumns(10);
 		tfCRM.setBounds(70, 5, 152, 20);
 		panel_1_1_1_1.add(tfCRM);
-		
-		JLabel lblRazao_1 = new JLabel("");
-		lblRazao_1.setBounds(242, 8, 225, 14);
-		panel_1_1_1_1.add(lblRazao_1);
+		btConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 String retorno = JOptionPane.showInputDialog(null,"Digite o CRM do Médico:");
+	                CodPac = retorno;
+
+	                try
+	                    {
+	                        pStmt = con.prepareStatement("SELECT * FROM MEDICOS WHERE CRM LIKE ?");
+	                        pStmt.setString(1,retorno);
+	                        ResultSet rs = pStmt.executeQuery();
+	                        //tfNome.setEditable(false);
+	                       // tfCPF.setEditable(false);
+	                       // tfEndereco.setEditable(false);
+	                       // tfTelefone.setEditable(false);
+
+	                        if (rs.next())
+	                            {
+	                        						
+	                        						tfCRM.setText(rs.getString(1));
+	                        						
+						                        	try
+						                            {
+						                                pStmt = con.prepareStatement("SELECT CPF, NOME, TO_CHAR(DATANASCIMENTO, 'DD/MM/YYYY'), CIDADE, LOGRADOURO, NUMERO, SEXO,EMPRESAS_CNPJ,COMPLEMENTO FROM PESSOAS WHERE CPF LIKE ?");
+						                                pStmt.setString(1,rs.getString(2));
+						                                rs = pStmt.executeQuery();
+						                                rs.next();
+						                                tfCPF.setEditable(false);
+						                                tfCRM.setEditable(false);
+		                                                CodPac = rs.getString(1);
+		                                                tfCPF.setText(rs.getString(1));
+		                                                tfNome.setText(rs.getString(2));
+		                                                tfDataNasc.setText(rs.getString(3));
+		                                                tfCidade.setText(rs.getString(4));
+		                                                tfLogradouro.setText(rs.getString(5));
+		                                                tfNumero.setText(rs.getString(6));
+		                                                tfTelefone.setText(rs.getString(7));
+		                                                tfComplemento.setText(rs.getString(9));
+		                                                situacao = 4;
+		                                                btExcluir.setEnabled(false);
+		                                                btAlterar.setEnabled(false);
+		                                                btSalvar.setEnabled(true);
+		                                                btIncluir.setEnabled(false);
+		                                                btConsultar.setEnabled(false);
+		                                                btSalvar.setText("OK");
+		                                                
+		                                           
+						                            }
+						                        	
+						                        	catch (SQLException ex)
+						                            {
+						                                JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
+
+						                            }
+		                                                
+	                                                
+	                         
+
+	                            }
+	                        else
+	                            {
+	                                JOptionPane.showMessageDialog(null,"Médico não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+	                                btExcluir.setEnabled(true);
+	                                btAlterar.setEnabled(true);
+	                                btSalvar.setEnabled(false);
+	                                btIncluir.setEnabled(true);
+	                                btSalvar.setText("Salvar");
+
+	                            }
+	            }
+	        catch (SQLException ex)
+	            {
+	                JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
+
+	            }
+
+ }
+			
+		});
 		
 
-		btConsultar.setBounds(389, 351, 89, 23);
+		btConsultar.setBounds(429, 351, 89, 23);
 		getContentPane().add(btConsultar);
 		
 	

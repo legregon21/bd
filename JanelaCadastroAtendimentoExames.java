@@ -357,7 +357,7 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
                                                     }
                                                 catch (SQLException ex)
                                                     {
-                                                        JOptionPane.showMessageDialog(null, "Erro ao Salvar. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
+                                                        JOptionPane.showMessageDialog(null, "Conflito de horário. Verifique!", "Erro", JOptionPane.INFORMATION_MESSAGE);
                                                     }
 
 
@@ -534,7 +534,7 @@ public class JanelaCadastroAtendimentoExames extends JInternalFrame {
 		btSelecionarE.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				
-				String retorno = JOptionPane.showInputDialog(null,"Digite o CRM do Médico:");
+				String retorno = JOptionPane.showInputDialog(null,"Digite o código do exame:");
 
                 try
                     {

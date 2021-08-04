@@ -306,42 +306,53 @@ public class JanelaCadastroPaciente extends JInternalFrame {
 		getContentPane().add(btAlterar);
 		btExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
-			 {
+			{
                 String retorno = JOptionPane.showInputDialog(null,"Digite o CPF do Paciente");
-                CodPac = retorno;
 
                 try
                     {
-                        pStmt = con.prepareStatement("SELECT * FROM PESSOAS WHERE CPF LIKE ?");
+                        pStmt = con.prepareStatement("SELECT CPF, NOME,TO_CHAR(DATANASCIMENTO, 'DD/MM/YYYY'), CIDADE, LOGRADOURO, NUMERO, SEXO, EMPRESAS_CNPJ, COMPLEMENTO FROM PESSOAS WHERE CPF LIKE ?");
                         pStmt.setString(1,retorno);
                         ResultSet rs = pStmt.executeQuery();
-                        //tfNome.setEditable(false);
-                       // tfCPF.setEditable(false);
-                       // tfEndereco.setEditable(false);
-                       // tfTelefone.setEditable(false);
-
                         if (rs.next())
                             {
+                                CodPac = rs.getString(1);
+                                tfCPF.setText(rs.getString(1));
+                                tfNome.setText(rs.getString(2));
+                                tfDataNasc.setText(rs.getString(3));
+                                tfCidade.setText(rs.getString(4));
+                                tfLogradouro.setText(rs.getString(5));
+                                tfNumero.setText(rs.getString(6));
+                                tfSexo.setText(rs.getString(7));
+                                tfEmpresas_CNPJ.setText(rs.getString(8));
+                                tfComplemento.setText(rs.getString(9));
+                                situacao = 3;
                                 
-                                                CodPac = rs.getString(1);
-                                                tfCPF.setText(rs.getString(1));
-                                                tfNome.setText(rs.getString(2));
-                                                tfDataNasc.setText(rs.getString(3));
-                                                tfCidade.setText(rs.getString(4));
-                                                tfLogradouro.setText(rs.getString(5));
-                                                tfNumero.setText(rs.getString(6));
-                                                tfSexo.setText(rs.getString(7));
-                                                tfEmpresas_CNPJ.setText(rs.getString(8));
-                                                tfComplemento.setText(rs.getString(9));
-                                                situacao = 3;
-                                                btExcluir.setEnabled(false);
-                                                btAlterar.setEnabled(false);
-                                                btSalvar.setEnabled(true);
-                                                btIncluir.setEnabled(false);
-                                                btSalvar.setText("Confirmar");
-                                                
-                                                btConsultar.setEnabled(false);
-                         
+                                
+                              try
+                                {
+                                    pStmt = con.prepareStatement("SELECT * FROM TELEFONE WHERE PESSOAS_CPF LIKE ?");
+                                    pStmt.setString(1,retorno);
+                                    rs = pStmt.executeQuery();
+                                }
+                                catch (SQLException ex)
+                                {
+                                    JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
+        
+                                } 
+                               rs.next();
+                                tfTelefone.setText(rs.getString(2));
+
+
+                                btExcluir.setEnabled(false);
+                                btAlterar.setEnabled(false);
+                                btSalvar.setEnabled(true);
+                                btIncluir.setEnabled(false);
+                                tfCPF.setEditable(false);
+                                tfEmpresas_CNPJ.setEditable(false);
+                                
+                                btConsultar.setEnabled(false);
+
 
                             }
                         else
@@ -351,7 +362,7 @@ public class JanelaCadastroPaciente extends JInternalFrame {
                                 btAlterar.setEnabled(true);
                                 btSalvar.setEnabled(false);
                                 btIncluir.setEnabled(true);
-                           
+                            
                                 btConsultar.setEnabled(true);
 
 
@@ -362,6 +373,7 @@ public class JanelaCadastroPaciente extends JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
 
             }
+
     }
 		});
 		
@@ -437,7 +449,7 @@ public class JanelaCadastroPaciente extends JInternalFrame {
                                                     }
                                                 catch (SQLException ex)
                                                     {
-                                                        JOptionPane.showMessageDialog(null, "Erro ao Salvar. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
+                                                        JOptionPane.showMessageDialog(null, "Paciente já cadastrado ou cadastro possui algum campo inválido. Verifique.\n", "Erro", JOptionPane.ERROR_MESSAGE);
                                                     }
                                             }
                                         }

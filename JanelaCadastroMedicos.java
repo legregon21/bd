@@ -291,79 +291,80 @@ public class JanelaCadastroMedicos extends JInternalFrame {
 		getContentPane().add(btAlterar);
 		btExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
-			 {
-                String retorno = JOptionPane.showInputDialog(null,"Digite o CRM do Médico:");
-                CodPac = retorno;
+			{
+				 String retorno = JOptionPane.showInputDialog(null,"Digite o CRM do Médico:");
+	                CodPac = retorno;
 
-                try
-                    {
-                        pStmt = con.prepareStatement("SELECT * FROM MEDICOS WHERE CRM LIKE ?");
-                        pStmt.setString(1,retorno);
-                        ResultSet rs = pStmt.executeQuery();
-                        //tfNome.setEditable(false);
-                       // tfCPF.setEditable(false);
-                       // tfEndereco.setEditable(false);
-                       // tfTelefone.setEditable(false);
+	                try
+	                    {
+	                        pStmt = con.prepareStatement("SELECT * FROM MEDICOS WHERE CRM LIKE ?");
+	                        pStmt.setString(1,retorno);
+	                        ResultSet rs = pStmt.executeQuery();
+	                        //tfNome.setEditable(false);
+	                       // tfCPF.setEditable(false);
+	                       // tfEndereco.setEditable(false);
+	                       // tfTelefone.setEditable(false);
 
-                        if (rs.next())
-                            {
-                        						
-                        						tfCRM.setText(rs.getString(1));
-                        						
-					                        	try
-					                            {
-					                                pStmt = con.prepareStatement("SELECT * FROM PESSOAS WHERE CPF LIKE ?");
-					                                pStmt.setString(1,rs.getString(2));
-					                                rs = pStmt.executeQuery();
-					                                rs.next();
-					                                
-	                                                CodPac = rs.getString(1);
-	                                                tfCPF.setText(rs.getString(1));
-	                                                tfNome.setText(rs.getString(2));
-	                                                tfDataNasc.setText(rs.getString(3));
-	                                                tfCidade.setText(rs.getString(4));
-	                                                tfLogradouro.setText(rs.getString(5));
-	                                                tfNumero.setText(rs.getString(6));
-	                                                tfTelefone.setText(rs.getString(7));
-	                                                tfComplemento.setText(rs.getString(9));
-	                                                situacao = 3;
-	                                                btExcluir.setEnabled(false);
-	                                                btAlterar.setEnabled(false);
-	                                                btSalvar.setEnabled(true);
-	                                                btIncluir.setEnabled(false);
-	                                                tfCRM.setEditable(false);
-	                                                tfCPF.setEditable(false);
-	                                                btSalvar.setText("Confirmar");
-	                                           
-					                            }
-					                        	
-					                        	catch (SQLException ex)
-					                            {
-					                                JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
+	                        if (rs.next())
+	                            {
+	                        						
+	                        						tfCRM.setText(rs.getString(1));
+	                        						
+						                        	try
+						                            {
+						                                pStmt = con.prepareStatement("SELECT CPF, NOME, TO_CHAR(DATANASCIMENTO, 'DD/MM/YYYY'), CIDADE, LOGRADOURO, NUMERO, SEXO,EMPRESAS_CNPJ,COMPLEMENTO FROM PESSOAS WHERE CPF LIKE ?");
+						                                pStmt.setString(1,rs.getString(2));
+						                                rs = pStmt.executeQuery();
+						                                rs.next();
+						                                tfCPF.setEditable(false);
+						                                tfCRM.setEditable(false);
+		                                                CodPac = rs.getString(1);
+		                                                tfCPF.setText(rs.getString(1));
+		                                                tfNome.setText(rs.getString(2));
+		                                                tfDataNasc.setText(rs.getString(3));
+		                                                tfCidade.setText(rs.getString(4));
+		                                                tfLogradouro.setText(rs.getString(5));
+		                                                tfNumero.setText(rs.getString(6));
+		                                                tfTelefone.setText(rs.getString(7));
+		                                                tfComplemento.setText(rs.getString(9));
+		                                                situacao = 3;
+		                                                btExcluir.setEnabled(false);
+		                                                btAlterar.setEnabled(false);
+		                                                btSalvar.setEnabled(true);
+		                                                btIncluir.setEnabled(false);
+		                                                btConsultar.setEnabled(false);
+		                                                
+		                                           
+						                            }
+						                        	
+						                        	catch (SQLException ex)
+						                            {
+						                                JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
 
-					                            }
+						                            }
+		                                                
 	                                                
-                                                
-                         
+	                         
 
-                            }
-                        else
-                            {
-                                JOptionPane.showMessageDialog(null,"Médico não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
-                                btExcluir.setEnabled(true);
-                                btAlterar.setEnabled(true);
-                                btSalvar.setEnabled(false);
-                                btIncluir.setEnabled(true);
+	                            }
+	                        else
+	                            {
+	                                JOptionPane.showMessageDialog(null,"Médico não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+	                                btExcluir.setEnabled(true);
+	                                btAlterar.setEnabled(true);
+	                                btSalvar.setEnabled(false);
+	                                btIncluir.setEnabled(true);
 
 
-                            }
-            }
-        catch (SQLException ex)
-            {
-                JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
+	                            }
+	            }
+	        catch (SQLException ex)
+	            {
+	                JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
 
-            }
-    }
+	            }
+
+   }
 		});
 		
 		
@@ -418,7 +419,7 @@ public class JanelaCadastroMedicos extends JInternalFrame {
                                                     }
                                                 catch (SQLException ex)
                                                     {
-                                                        JOptionPane.showMessageDialog(null, "Erro ao Salvar. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
+                                                        JOptionPane.showMessageDialog(null, "Médico já cadastrado ou cadastro possui algum campo inválido. Verifique.\n", "Erro", JOptionPane.ERROR_MESSAGE);
                                                     }
                                           
 

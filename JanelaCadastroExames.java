@@ -279,7 +279,7 @@ public class JanelaCadastroExames extends JInternalFrame {
                                                     }
                                                 catch (SQLException ex)
                                                     {
-                                                        JOptionPane.showMessageDialog(null, "Erro ao Salvar. Verifique.\n"+ex, "Erro", JOptionPane.ERROR_MESSAGE);
+                                                        JOptionPane.showMessageDialog(null, "Exame já cadastrado ou cadastro possui algum campo inválido. Verifique", "Erro", JOptionPane.ERROR_MESSAGE);
                                                     }
 
 
